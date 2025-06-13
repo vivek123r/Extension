@@ -4,7 +4,7 @@ document.getElementById("sendBtn").addEventListener("click", async () => {
 
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
-  const apiKey = "YOUR_GEMINI_API_KEY";  // Replace with your real Gemini API key
+  const apiKey = "AIzaSyBGj_5tBrjR1XQvJQYop3j57xdq9pk_pxE";  // Replace with your real Gemini API key
   const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + apiKey;
 
   const response = await fetch(url, {
