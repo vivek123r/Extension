@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Mini Chatbot Writer",
+  "version": "1.0",
+  "description": "Write a prompt and paste the response in input fields.",
+  "permissions": ["scripting", "activeTab"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
