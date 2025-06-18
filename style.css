@@ -23,7 +23,7 @@ textarea {
 }
 
 button {
-  background-color: #4CAF50;
+  background-color: #10be16;
   color: white;
   padding: 10px;
   border: none;
@@ -31,7 +31,6 @@ button {
   cursor: pointer;
   font-size: 15px;
 }
-
 button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;

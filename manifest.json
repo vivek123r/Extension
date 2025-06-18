@@ -3,7 +3,7 @@
   "name": "Mini Chatbot Writer",
   "version": "1.0",
   "description": "Write a prompt and paste the response in input fields.",
-  "permissions": ["scripting", "activeTab"],
+  "permissions": ["storage","scripting", "activeTab"],
   "action": {
     "default_popup": "popup.html"
   },

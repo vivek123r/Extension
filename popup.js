@@ -1,3 +1,32 @@
+window.addEventListener("DOMContentLoaded", () => {
+  chrome.storage.local.get({ chatHistory: [] }, (result) => {
+    const history = result.chatHistory;
+    let chatContainer = document.getElementById("chatContainer");
+
+    if (!chatContainer) {
+      chatContainer = document.createElement("div");
+      chatContainer.id = "chatContainer";
+      chatContainer.className = "chat-container";
+      document.querySelector(".container").appendChild(chatContainer);
+    }
+
+    history.forEach((msg) => {
+      const messageDiv = document.createElement("div");
+      messageDiv.className = `message ${msg.role === "user" ? "user-message" : "ai-message"}`;
+      messageDiv.innerHTML = `<div class="message-label">${msg.role === "user" ? "You" : "AI"}:</div><div class="message-content">${escapeHtml(msg.content)}</div>`;
+      chatContainer.appendChild(messageDiv);
+    });
+
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+  });
+});
+
+document.getElementById("clearHistoryBtn").addEventListener("click", () => {
+  chrome.storage.local.remove("chatHistory", () => {
+    document.getElementById("chatContainer").innerHTML = "";
+  });
+});
+
 document.getElementById("sendBtn").addEventListener("click", async () => {
   const prompt = document.getElementById("prompt").value.trim();
   if (!prompt) return alert("Please enter a prompt.");
@@ -135,6 +164,13 @@ function displayConversation(userPrompt, aiResponse) {
   
   // Scroll to bottom
   chatContainer.scrollTop = chatContainer.scrollHeight;
+
+  chrome.storage.local.get({ chatHistory: [] }, (result) => {
+    const history = result.chatHistory;
+    history.push({ role: "user", content: userPrompt });
+    history.push({ role: "ai", content: aiResponse });
+    chrome.storage.local.set({ chatHistory: history });
+  });
 }
 
 // Helper function to escape HTML
